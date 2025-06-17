@@ -1,0 +1,104 @@
+@font-face {
+    font-family: reve;
+    src: url('./assets/fonts/reve.eot') format('embedded-opentype'),
+        url('./assets/fonts/reve.otf') format('opentype'),
+        url('./assets/fonts/reve.woff') format('woff'),
+        url('./assets/fonts/reve.woff2') format('woff2');
+    font-weight: 400;
+}
+
+body {
+    margin-left: 20px;
+    width: fit-content;
+}
+
+button {
+    background-color: gray;
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    padding: 15px;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    cursor: pointer;
+}
+
+h1 {
+    margin: 0 auto;
+    font-family: reve, Arial;
+    font-size: 100px;
+}
+
+#title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+#yahtzeeTitle {
+    display: flex;
+    align-items: baseline;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#name {
+    display: flex;
+    align-items: baseline;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+hr {
+    border: solid black 1px;
+    clear:both;
+    display:block;
+    width: 100%;
+}
+
+#scoreBoard {
+    border: solid 2px black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+th {
+    border: solid 2px black;
+}
+
+td {
+    border: solid 2px black;
+    height: 10px;
+    width: 120px;
+    padding: 5px;
+}
+
+#upperSection, #lowerSection {
+    border: solid 2px black;
+    border-collapse: collapse;
+    margin: 5px;
+}
+
+#lowerSectionTitle {
+    margin: 5px;
+}
+
+.splitCells {
+    border-bottom: solid 2px black;
+    border-collapse: collapse;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.smallerTexts {
+    font-size: 12px;
+}
+
+.dice-container{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    margin: 20px 0px;
+}
+
