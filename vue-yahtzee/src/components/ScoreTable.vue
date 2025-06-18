@@ -1,4 +1,31 @@
-<script setup></script>
+<script setup>
+import {computed} from 'vue';
+const thrownDices = defineModel();
+console.log('ScoreTable thrownDices:', thrownDices.value);
+
+function diceName(num) {
+    const names = ['Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes'];
+    return names[num - 1];
+}
+
+// for (let i = 0; i < thrownDices.value.amount.length; i++) {
+
+// }
+
+const totalScore = computed(() => {
+    return thrownDices.value.reduce((sum, item) => {
+        return sum + item.number * item.amount;
+    }, 0);
+});
+
+const bonus = computed(() => {
+    if (totalScore.value > 63) {
+        return 35;
+    } else {
+        return 0;
+    }
+});
+</script>
 
 <template>
     <div id="scoreBoard">
@@ -13,60 +40,10 @@
                 <th>Game 5</th>
                 <th>Game 6</th>
             </tr>
-            <tr>
-                <td>Aces = 1</td>
-                <td>Count and Add Only Aces</td>
-                <td class="count"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Twos = 2</td>
-                <td>Count and Add Only Twos</td>
-                <td class="count"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Threes = 3</td>
-                <td>Count and Add Only Threes</td>
-                <td class="count"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Fours = 4</td>
-                <td>Count and Add Only Fours</td>
-                <td class="count"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Fives = 5</td>
-                <td>Count and Add Only Fives</td>
-                <td class="count"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Sixes = 6</td>
-                <td>Count and Add Only Sixes</td>
-                <td class="count"></td>
+            <tr v-for="item in thrownDices" :key="item.number">
+                <td>{{ diceName(item.number) }} = {{ item.number }}</td>
+                <td>Count and Add Only {{ diceName(item.number) }}</td>
+                <td class="count">{{ item.amount }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -76,7 +53,7 @@
             <tr>
                 <td>Total score</td>
                 <td>-></td>
-                <td id="totalScore"></td>
+                <td id="totalScore">{{ totalScore }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -89,7 +66,7 @@
                     <span class="smallerTexts">If total score is 63 or over</span>
                 </td>
                 <td>Score 35</td>
-                <td id="bonus"></td>
+                <td id="bonus">{{ bonus }}</td>
                 <td></td>
                 <td></td>
                 <td></td>

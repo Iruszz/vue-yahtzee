@@ -1,8 +1,9 @@
 <script setup>
+import {ref} from 'vue';
 import ThrownDices from './components/ThrownDices.vue';
 import ScoreTable from './components/ScoreTable.vue';
 
-const dice = [];
+const thrownDices = ref([]);
 </script>
 
 <template>
@@ -17,7 +18,6 @@ const dice = [];
         <hr />
     </div>
 
-    <ThrownDices v-model="dice" />
-
-    <ScoreTable />
+    <ThrownDices v-model="thrownDices" />
+    <ScoreTable v-model="thrownDices" />
 </template>

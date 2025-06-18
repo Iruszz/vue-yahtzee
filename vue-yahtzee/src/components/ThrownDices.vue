@@ -1,6 +1,8 @@
 <script setup>
-import {ref} from 'vue';
+import {ref, computed} from 'vue';
 import DiceIcon from './DiceIcon.vue';
+
+const thrownDices = defineModel();
 
 const count = ref([
     {number: 1, amount: 0},
@@ -11,26 +13,33 @@ const count = ref([
     {number: 6, amount: 0},
 ]);
 
-const thrownDices = ref([]);
+const flattenedDice = computed(() => count.value.flatMap(d => Array(d.amount).fill(d.number)));
+
+console.log('flattenedDice:', flattenedDice);
 
 function increment() {
     count.value.forEach(d => (d.amount = 0));
 
-    const results = [];
+    // const results = [];
     for (let i = 0; i < 6; i++) {
         const roll = Math.floor(Math.random() * 6) + 1;
-        results.push(roll);
+        // results.push(roll);
         count.value[roll - 1].amount++;
     }
 
-    thrownDices.value = results;
-    console.log('New roll:', results);
+    // thrownDices.value = count.value;
+    thrownDices.value = count.value.map(item => ({...item}));
+
+    console.log('count.value inside of increment:', count.value);
+    console.log('ThrownDices inside of increment:', thrownDices.value);
 }
+
+console.log('count.value 2:', count.value);
 </script>
 
 <template>
     <div class="dice-container">
-        <DiceIcon v-for="(dice, index) in thrownDices" :key="index" :diceNumber="dice" />
+        <DiceIcon v-for="(diceNumber, index) in flattenedDice" :key="index" :diceNumber="diceNumber" />
     </div>
 
     <button id="dice" @click="increment"><strong>Throw!</strong></button>
