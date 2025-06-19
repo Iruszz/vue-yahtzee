@@ -21,7 +21,7 @@ function increment() {
     count.value.forEach(d => (d.amount = 0));
 
     // const results = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         const roll = Math.floor(Math.random() * 6) + 1;
         // results.push(roll);
         count.value[roll - 1].amount++;
