@@ -1,7 +1,6 @@
 <script setup>
 import {computed} from 'vue';
 const thrownDices = defineModel();
-console.log('ScoreTable thrownDices:', thrownDices.value);
 
 function diceName(num) {
     const names = ['Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes'];
@@ -23,11 +22,7 @@ const bonus = computed(() => {
     }
 });
 
-const totalOfUpperSection = computed(() => {
-    return thrownDices.value.reduce((sum, item) => {
-        return sum + item.number * item.amount;
-    }, 0);
-});
+const totalOfUpperSection = totalScore;
 
 // lowerSection
 const threeOfAKind = computed(() => {
@@ -58,7 +53,6 @@ const calculateSortedKeys = computed(() => {
 
     const sortedKeys = sortedEntries.flatMap(entry => Array(entry.amount).fill(entry.number));
 
-    console.log(sortedKeys);
     return sortedKeys;
 });
 
@@ -79,7 +73,6 @@ function hasStraight(sortedKeys, length) {
 const smallStraight = computed(() => {
     const sortedKeys = calculateSortedKeys.value;
     if (hasStraight(sortedKeys, 4)) {
-        console.log('Small Straight!');
         return 30;
     }
     return 0;
@@ -88,7 +81,6 @@ const smallStraight = computed(() => {
 const longStraight = computed(() => {
     const sortedKeys = calculateSortedKeys.value;
     if (hasStraight(sortedKeys, 5)) {
-        console.log('Long Straight!');
         return 40;
     }
     return 0;
@@ -97,13 +89,12 @@ const longStraight = computed(() => {
 const yahtzee = computed(() => {
     const sortedKeys = calculateSortedKeys.value;
     if (hasStraight(sortedKeys, 6)) {
-        console.log('Long Straight!');
         return 50;
     }
     return 0;
 });
 
-const Chance = computed(() => {
+const chance = computed(() => {
     return thrownDices.value.reduce((sum, item) => {
         return sum + item.number * item.amount;
     }, 0);
@@ -117,7 +108,7 @@ const totalOfLowerSection = computed(() => {
         smallStraight.value +
         longStraight.value +
         yahtzee.value +
-        Chance.value
+        chance.value
     );
 });
 
@@ -250,7 +241,7 @@ const grandTotal = computed(() => {
             <tr>
                 <td>Chance</td>
                 <td>Score Total Of All Dice</td>
-                <td id="chance">{{ Chance }}</td>
+                <td id="chance">{{ chance }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
